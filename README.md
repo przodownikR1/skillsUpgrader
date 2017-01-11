@@ -1,2 +1,2 @@
 # skillsUpgrader
-crafsmanship system
+craftsmanship system
