@@ -1,0 +1,13 @@
+apply plugin: 'groovy'
+
+sourceSets {
+    intTest
+    main {
+        groovy { srcDir 'src/main/groovy' }       
+    }
+    test {
+        groovy { srcDir 'src/test/groovy' }
+    }
+}
+
+

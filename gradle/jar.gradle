@@ -1,0 +1,34 @@
+apply plugin: 'java'
+
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+
+task javadocJar( type: Jar, dependsOn: javadoc ) {
+    classifier 'javadoc'
+    from javadoc.destinationDir
+    }
+    artifacts{
+   
+    archives javadocJar
+    }
+    
+    
+    assemble.dependsOn javadocJar
+    
+    
+    jar {
+        manifest {
+                attributes(
+                                'Implementation-Title': "${project.name}",
+                                'Implementation-Version': version.toString(),
+                                'Created-By': System.getProperty('java.version') + ' (' + System.getProperty('java.vendor') + ')',
+                                'Built-With': "gradle-${project.getGradle().getGradleVersion()}, groovy-${GroovySystem.getVersion()}",
+                                'Build-Time': "${new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")}",
+                                'Built-By': System.getProperty('user.name'),
+                                'Built-On': "${InetAddress.localHost.hostName}/${InetAddress.localHost.hostAddress}"
+                                )
+        }
+}

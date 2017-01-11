@@ -1,0 +1,17 @@
+
+
+apply plugin: 'project-report'
+apply plugin: 'build-dashboard'
+
+task repositoriesInfo {
+    description 'Display information about repositories'
+    doFirst {
+
+        // Access repositories as collection.
+        project.repositories.each {
+            // Display name and URL for each
+            // repository.
+            println "'${it.name}' uses URL ${it.url}"
+        }
+    }
+}

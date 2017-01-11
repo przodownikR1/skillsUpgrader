@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanperiod="5 seconds">
+
+	<property scope="context" name="pattern_stdout"
+		value="%.-5level %date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [appId] %logger{70}:%line - %msg%n" />
+
+
+     <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:- } --- [%15.15t{14}] %-40.40logger{39} : %m%n"/>
+    <property name="CONSOLE_LOG_PATTERN" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+
+
+
+  <!--  <include resource="org/springframework/boot/logging/logback/base.xml" />
+   <springProfile name="prod">
+        <logger name="pl.java.scalatech" level="ERROR" additivity="false">
+            <appender-ref ref="FILE" />
+        </logger>
+    </springProfile>
+    <springProfile name="dev">
+        <logger name="pl.java.scalatech" level="DEBUG" additivity="false">
+            <appender-ref ref="CONSOLE" />
+        </logger>
+    </springProfile> -->
+
+
+ <appender name="Sql" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--See also http://logback.qos.ch/manual/appenders.html#RollingFileAppender -->
+        <file>logs/sql.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <maxIndex>10</maxIndex>
+            <fileNamePattern>logs/springJpaKata.log.%i</fileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>25MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+    
+     <appender name="Metrics" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--See also http://logback.qos.ch/manual/appenders.html#RollingFileAppender -->
+        <file>logs/metrics.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <maxIndex>10</maxIndex>
+            <fileNamePattern>logs/springJpaKata.log.%i</fileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>25MB</maxFileSize>
+        </triggeringPolicy>
+</appender>
+
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>upgraderSkills.log</file>
+		<encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+	</appender>
+
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+            <charset>UTF-8</charset>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+	</appender>
+
+
+
+
+	<logger name="pl.java.scalatech" level="info" additivity="false">
+		<appender-ref ref="FILE" />
+		<appender-ref ref="console" />
+	</logger>
+  <logger name="pl.java.scalatech" level="info" />
+    <logger name="org.springframework.data.rest.webmvc" level="warn"/>
+    <logger name="org.springframework.web.servlet.handler" level="warn"/>
+    <logger name="org.springframework.web.servlet.DispatcherServlet" level="warn"/>
+    <logger name="org.springframework.web.context.support.StandardServletEnvironment" level="warn"/>
+    <logger name="org.springframework.web.servlet.resource.ResourceUrlProvider" level="warn"/>
+    <logger name="org.apache.camel.spring" level="warn"/>
+     
+    <logger name="org.springframework.web" level="warn"/> 
+    <logger name="org.springframework.aop.interceptor" level="trace" />
+    <logger name="org.springframework" level="info" />
+    <logger name="org.springframework.data" level="info" />
+    <root level="INFO">
+       <appender-ref ref="console" />
+    </root>
+    
+</configuration>

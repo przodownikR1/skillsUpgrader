@@ -1,0 +1,20 @@
+
+apply plugin: 'org.springframework.boot'
+
+bootRun {
+    if (System.properties.containsKey('spring.profiles.active')) {
+        systemProperty "spring.profiles.active", System.properties['spring.profiles.active']
+     }
+
+     def stdOpts = ['-Dfile.encoding=UTF8', '-Xms128m', '-Xmx256m' ,'-XX:+UseG1GC']
+     def gcOpts = ['-verbose:gc','-XX:+PrintGCDetails', '-XX:+PrintHeapAtGC',
+                '-XX:+PrintGCDateStamps', '-XX:+PrintTenuringDistribution',
+                '-XX:+PrintClassHistogram', '-Xloggc:gc.log']
+
+     jvmArgs = stdOpts + gcOpts
+
+     if ( project.hasProperty('jvmArgs') ) {
+         jvmArgs project.jvmArgs.split('\\s+')
+     }
+
+}
