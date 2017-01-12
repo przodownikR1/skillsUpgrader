@@ -24,3 +24,5 @@ dist/
 nbdist/
 .nb-gradle/coberturaReports/
 application.pid
+upgraderSkills.log
+upgraderSkills.log

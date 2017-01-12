@@ -1,7 +1,49 @@
 
 apply plugin: 'org.springframework.boot'
 
+apply plugin: "com.gorylenko.gradle-git-properties"
+ 
+//based on http://mrhaki.blogspot.com/ blog 
+springBoot {
+    // This statement tells the Gradle Spring Boot plugin
+    // to generate a file
+    // build/resources/main/META-INF/build-info.properties
+    // via /info endpoint.
+   buildInfo {
+        // Generate extra build info.
+        additionalProperties = [
+               by: System.properties['user.name'],
+               operatingSystem: "${System.properties['os.name']} (${System.properties['os.version']})",
+               continuousIntegration: System.getenv('CI') ? true: false,
+               machine: InetAddress.localHost.hostName,
+               time: buildTime(),
+               'springBootVersion': "${springBootVersion}",                                
+               'project.rootDir': "${project.rootDir}",
+               'project.buildDir': "${project.buildDir}"
+        ]
+    }
+}
+
+
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+ 
+def buildTime() {
+    final dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ")
+    dateFormat.timeZone = TimeZone.getTimeZone('GMT')
+    dateFormat.format(new Date())
+}
+gitProperties {
+     /*gitRepositoryRoot = new File("${project.rootDir}/..")
+     gitPropertiesDir = new File("${project.rootDir}/web/src/main/resources")*/
+     dateFormat = "yyyy-MM-dd'T'HH:mmZ"
+     dateFormatTimeZone = "EET"
+
+}
+
+
 bootRun {
+    systemProperty 'management.info.git.mode', 'FULL'
     if (System.properties.containsKey('spring.profiles.active')) {
         systemProperty "spring.profiles.active", System.properties['spring.profiles.active']
      }

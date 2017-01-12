@@ -1,0 +1,16 @@
+task createBuildInfoFile doLast {
+    def buildInfoFile = new File("$buildDir/build-info.properties")
+    Properties properties = new Properties()
+    properties.setProperty('version', project.version.toString())
+    properties.setProperty('timestamp', project.buildTimestamp)
+    properties.store(buildInfoFile.newWriter(), null)
+}
+
+jar {
+    dependsOn createBuildInfoFile
+    baseName = project.jar.baseName
+    from(buildDir) {
+        include 'build-info.properties'
+        into('/')
+    }
+}

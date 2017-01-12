@@ -4,6 +4,11 @@ import static net.sf.log4jdbc.tools.LoggingType.SINGLE_LINE;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -27,10 +32,9 @@ public class JpaLoggerConfig {
     @Bean
     @Primary
     @Profile("logger")
-    @DependsOn("hikariDataSource")
-    public DataSource dataSource(DataSource hikariDataSource) {
+    public DataSource dataSource(DataSource primaryDataSource) {
         log.info("+++++ dataSource init ....");
-        Log4jdbcProxyDataSource dataSource = new Log4jdbcProxyDataSource(hikariDataSource);
+        Log4jdbcProxyDataSource dataSource = new Log4jdbcProxyDataSource(primaryDataSource);
         dataSource.setLogFormatter(logFormater());
         return dataSource;
     }
@@ -42,5 +46,23 @@ public class JpaLoggerConfig {
         formatter.setSqlPrefix(SQL);
         return formatter;
     }
+    
+    @Autowired
+    DataSourceProperties properties;
+    DataSource dataSource;
+
+ 
+    @Bean(destroyMethod = "close")
+    DataSource realDataSource() {
+        DataSourceBuilder factory = DataSourceBuilder
+                .create(this.properties.getClassLoader())
+                .url(this.properties.getUrl())
+                .username(this.properties.getUsername())
+                .password(this.properties.getPassword());
+        this.dataSource = factory.build();
+        return this.dataSource;
+    }
+
+ 
 
 }
