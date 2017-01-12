@@ -124,3 +124,9 @@
 2017-01-12 12:46:49.289  INFO 2643 --- [  restartedMain] p.j.scalatech.UpgraderSkillsApplication  : Starting UpgraderSkillsApplication on przodownik-r1 with PID 2643 (/home/przodownik/blog/skillsUpgrader/build/classes/main started by przodownik in /home/przodownik/blog/skillsUpgrader)
 2017-01-12 12:46:49.292  INFO 2643 --- [  restartedMain] p.j.scalatech.UpgraderSkillsApplication  : The following profiles are active: dev
 2017-01-12 12:46:57.156  INFO 2643 --- [  restartedMain] p.j.scalatech.UpgraderSkillsApplication  : Started UpgraderSkillsApplication in 8.189 seconds (JVM running for 8.597)
+2017-01-12 15:28:18.727  INFO 11345 --- [  restartedMain] p.j.scalatech.UpgraderSkillsApplication  : Starting UpgraderSkillsApplication on przodownik-r1 with PID 11345 (/home/przodownik/blog/skillsUpgrader/build/classes/main started by przodownik in /home/przodownik/blog/skillsUpgrader)
+2017-01-12 15:28:18.730  INFO 11345 --- [  restartedMain] p.j.scalatech.UpgraderSkillsApplication  : The following profiles are active: dev
+2017-01-12 15:28:26.616  INFO 11345 --- [  restartedMain] p.j.scalatech.UpgraderSkillsApplication  : Started UpgraderSkillsApplication in 8.278 seconds (JVM running for 8.767)
+2017-01-12 15:30:16.172  INFO 11648 --- [  restartedMain] p.j.scalatech.UpgraderSkillsApplication  : Starting UpgraderSkillsApplication on przodownik-r1 with PID 11648 (/home/przodownik/blog/skillsUpgrader/build/classes/main started by przodownik in /home/przodownik/blog/skillsUpgrader)
+2017-01-12 15:30:16.174  INFO 11648 --- [  restartedMain] p.j.scalatech.UpgraderSkillsApplication  : The following profiles are active: dev
+2017-01-12 15:30:24.321  INFO 11648 --- [  restartedMain] p.j.scalatech.UpgraderSkillsApplication  : Started UpgraderSkillsApplication in 8.424 seconds (JVM running for 8.915)

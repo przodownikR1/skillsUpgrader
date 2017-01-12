@@ -27,3 +27,5 @@ application.pid
 upgraderSkills.log
 upgraderSkills.log
 coberturaReports
+upgraderSkills.log
+gc.log.0.current
