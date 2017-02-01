@@ -1,31 +1,42 @@
 apply plugin: 'org.junit.platform.gradle.plugin' //test 5
 
 junitPlatform {
-    reportsDir file("build/test-results/junit-platform")
-    filters {
-        engines {
-          include 'junit-jupiter'
-          include 'junit-vintage'
-        }
-        tags {
-         //   include 'fast', 'smoke'
-            // exclude 'slow', 'ci'
-        }
+		reportsDir file("build/test-results/junit-platform")
+		filters {
+				engines {
+					include 'junit-jupiter'
+					include 'junit-vintage'
+				}
+				tags {
+				//   include 'fast', 'smoke'
+						// exclude 'slow', 'ci'
+				}
 
-        packages {
-            include 'pl.java.scalatech.sample2','pl.java.scalatech.sample','pl.java.scalatech.unit5'
-            // exclude 'com.sample.excluded1', 'com.sample.excluded2'
-        }
-       includeClassNamePattern '.*Spec'
-       includeClassNamePatterns '.*Test', '.*Tests'
-    }
-     //   enableStandardTestTask true
+				packages {
+						include 'pl.java.scalatech.sample2','pl.java.scalatech.sample','pl.java.scalatech.unit5'
+						// exclude 'com.sample.excluded1', 'com.sample.excluded2'
+				}
+			includeClassNamePattern '.*Spec'
+			includeClassNamePatterns '.*Test', '.*Tests'
+		}
+		//   enableStandardTestTask true
 
 }
 
 ext {
-    junitPlatform = '1.0.0-M3'
+		junitPlatform = '1.0.0-M3'
 }
+
+
+apply plugin: "info.solidsoft.pitest"
+
+pitest {
+		targetClasses = ['pl.java.scalatech.*']
+		pitestVersion = "1.1.6"
+		threads = 4
+		outputFormats = ['XML', 'HTML']
+}
+
 
 
 dependencies {
@@ -33,18 +44,18 @@ testCompile('org.springframework.boot:spring-boot-starter-test')
 testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
 //'5.0.0-ALPHA'
 
-    testCompile group: 'org.junit', name: 'junit5-api', version: '5.0.0-ALPHA'
-    testCompile group: 'org.junit', name: 'junit5-engine', version: '5.0.0-ALPHA'
-    testCompile group: 'org.junit', name: 'junit-console', version: '5.0.0-ALPHA'
+		testCompile group: 'org.junit', name: 'junit5-api', version: '5.0.0-ALPHA'
+		testCompile group: 'org.junit', name: 'junit5-engine', version: '5.0.0-ALPHA'
+		testCompile group: 'org.junit', name: 'junit-console', version: '5.0.0-ALPHA'
 
 
 
-    testCompile("org.junit.jupiter:junit-jupiter-api:5.0.0-M3")
-    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.0-M3")
-    testRuntime("org.junit.vintage:junit-vintage-engine:4.12.0-M3")
-    compile group: 'org.junit', name: 'junit4-runner', version: '5.0.0-ALPHA'
+		testCompile("org.junit.jupiter:junit-jupiter-api:5.0.0-M3")
+		testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.0-M3")
+		testRuntime("org.junit.vintage:junit-vintage-engine:4.12.0-M3")
+		compile group: 'org.junit', name: 'junit4-runner', version: '5.0.0-ALPHA'
 
 
-    // Needed for @RunWith(JUnitPlatform.class) in the IDE
-    testCompile "org.junit.platform:junit-platform-runner:${junitPlatform}"
+		// Needed for @RunWith(JUnitPlatform.class) in the IDE
+		testCompile "org.junit.platform:junit-platform-runner:${junitPlatform}"
 }
