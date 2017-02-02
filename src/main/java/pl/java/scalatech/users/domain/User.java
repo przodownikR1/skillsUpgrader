@@ -15,11 +15,11 @@ import pl.java.scalatech.domains.AbstractEntity;
 @Builder
 public class User extends AbstractEntity{
 
- 
-    private static final long serialVersionUID = -1602864870067450805L;
-    private String firstName,lastName,name,login,email;
-    
-    
 
-  
+	private static final long serialVersionUID = -1602864870067450805L;
+	private String firstName,lastName,name,login,email;
+
+
+
+
 }
