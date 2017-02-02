@@ -5,7 +5,7 @@ import java.util.Optional;
 import pl.java.scalatech.cqrsRepo.QueryRepo;
 import pl.java.scalatech.users.domain.User;
 
-public interface UserRepo extends QueryRepo<User, Long>{
+public interface UserQueryRepo extends QueryRepo<User, Long>{
 
 	Optional<User> findByLogin(String login);
 

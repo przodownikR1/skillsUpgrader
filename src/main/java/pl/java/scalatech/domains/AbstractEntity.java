@@ -10,9 +10,17 @@ import lombok.Data;
 
 @MappedSuperclass
 @Data
-public abstract class AbstractEntity implements Serializable {     
-    
-    private static final long serialVersionUID = -8849524213300144330L;
-    @Id @GeneratedValue
-    protected Long id;
+public abstract class AbstractEntity implements Serializable {
+
+	private static final long serialVersionUID = -8849524213300144330L;
+	@Id @GeneratedValue
+	protected Long id;
+
+	public String getClassName(){
+		return this.getClass().getSimpleName();
+	}
+
+	public Long getId(){
+		return id;
+	}
 }

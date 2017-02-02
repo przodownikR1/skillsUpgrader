@@ -10,6 +10,7 @@ import pl.java.scalatech.domains.AbstractEntity;
 
 @NoRepositoryBean
 public interface CommandRepo<T extends AbstractEntity, ID extends Serializable> extends Repository<T, ID> {
+
 	<S extends T> S save(S entity);
 
 	void delete(ID id);

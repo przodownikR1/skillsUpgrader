@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import pl.java.scalatech.users.domain.User;
 import pl.java.scalatech.users.exception.UserNotFoundException;
-import pl.java.scalatech.users.repo.UserRepo;
+import pl.java.scalatech.users.repo.UserQueryRepo;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -25,7 +25,7 @@ public class UserRepositoryTests {
 	private TestEntityManager entityManager;
 
 	@Autowired
-	private UserRepo repo;
+	private UserQueryRepo repo;
 
 	@Test
 	public void shouldEntityManagerInject(){

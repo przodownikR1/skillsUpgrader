@@ -12,17 +12,17 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import pl.java.scalatech.skills.repo.SkillRepo;
 import pl.java.scalatech.tags.repo.TagRepo;
 import pl.java.scalatech.tasks.repo.TaskRepo;
-import pl.java.scalatech.users.repo.UserRepo;
+import pl.java.scalatech.users.repo.UserQueryRepo;
 
 @Configuration
-@EnableJpaRepositories(basePackageClasses = { TaskRepo.class, UserRepo.class, TagRepo.class, SkillRepo.class })
-public class JpaSourceConfig {
+@EnableJpaRepositories(basePackageClasses = { TaskRepo.class, UserQueryRepo.class, TagRepo.class, SkillRepo.class })
+class JpaSourceConfig {
 
 
-    @Bean
-    @Primary
-    @ConfigurationProperties("spring.datasource.hikari")
-    public DataSource primaryDataSource(DataSourceProperties properties) {
-        return properties.initializeDataSourceBuilder().build();
-    }
+	@Bean
+	@Primary
+	@ConfigurationProperties("spring.datasource.hikari")
+	DataSource primaryDataSource(DataSourceProperties properties) {
+		return properties.initializeDataSourceBuilder().build();
+	}
 }
