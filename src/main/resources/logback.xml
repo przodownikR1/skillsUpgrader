@@ -86,6 +86,35 @@
     <logger name="org.springframework.aop.interceptor" level="trace" />
     <logger name="org.springframework" level="info" />
     <logger name="org.springframework.data" level="info" />
+    <springProfile name="logstash">
+  <appender name="logstash" class="net.logstash.logback.appender.LogstashAccessTcpSocketAppender">
+   <destination>logstash:4560</destination>
+   <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+    <providers>
+     <timestamp>
+      <timeZone>UTC</timeZone>
+     </timestamp>
+     <pattern>
+      <pattern>
+       {
+       "timestamp": "@timestamp",
+       "severity": "%level",
+       "service": "${springAppName:-}",
+       "trace": "%X{X-B3-TraceId:-}",
+       "span": "%X{X-B3-SpanId:-}",
+       "exportable": "%X{X-Span-Export:-}",
+       "pid": "${PID:-}",
+       "thread": "%thread",
+       "class": "%logger{40}",
+       "rest": "%message"
+       }
+      </pattern>
+     </pattern>
+    </providers>
+   </encoder>
+  </appender>	
+	
+	
     <root level="INFO">
        <appender-ref ref="console" />
     </root>
