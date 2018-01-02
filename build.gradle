@@ -1,20 +1,18 @@
 buildscript {
-	ext {
-		springBootVersion = '1.4.3.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-										jcenter()
-								maven {
-												url "https://plugins.gradle.org/m2/"
-										}
 
-			}
-
+    repositories {
+        jcenter()
+        maven { url 'http://repo.spring.io/snapshot' }
+        maven { url 'http://repo.spring.io/milestone' }
+        maven { url 'https://plugins.gradle.org/m2/'}
+    }
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.0.0.M7'
+    }
+	
 	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 				classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M3'
-								classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.2.1"
+                classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.2.1"
 				classpath("info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.1.6")
 				classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.4.0'
 				classpath "net.saliman:gradle-cobertura-plugin:2.3.0"
@@ -24,11 +22,10 @@ buildscript {
 				classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.6'
 				classpath 'com.github.jruby-gradle:jruby-gradle-plugin:0.1.5'
 				classpath "org.liquibase:liquibase-gradle-plugin:1.2.1"
-
-
+				classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.5"
 	}
 }
-
+apply plugin: 'io.spring.dependency-management' 
 apply from: "gradle/boot.gradle"
 apply from: "gradle/dependencies.gradle"
 
@@ -40,7 +37,6 @@ apply from: "gradle/integrationTest.gradle"
 apply from: "gradle/liquibase.gradle"
 //apply from: "gradle/coverage.gradle"
 //apply from: "gradle/quality.gradle"
-apply from: "gradle/sonar.gradle"
 //apply from: "gradle/ascii.gradle"
 
 logger.lifecycle configurations.compile.name

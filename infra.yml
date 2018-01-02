@@ -1,0 +1,78 @@
+version: '3.0'
+
+services:  
+  redis:
+   container_name: redis
+   image: redis  
+   ports: 
+    - "6379:6379"
+
+  graphite:
+    image: hopsoft/graphite-statsd
+    container_name: graphite
+    ports:
+    - 80:80
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports: 
+    - "3000:3000"
+
+  cadvisor:
+   image:  google/cadvisor:latest
+   container_name: cadvisor
+   restart: always
+   volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:rw
+    - /sys:/sys:ro
+    - /var/lib/docker:/var/lib/docker:ro
+   ports:
+    - "9008:8080"
+
+  dockerui:
+   image:  elegoev/dockerui
+   container_name: dockerui
+   volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+   ports:
+   - "9007:9000"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+     - "15672:15672"
+    environment:
+     - RABBITMQ_DEFAULT_USER=test
+     - RABBITMQ_DEFAULT_PASS=password
+
+  elasticsearch:
+    image: elasticsearch:5.5.2
+    container_name: elasticSearch
+    restart: always
+    ports:
+        - 9200:9200
+        - 9300:9300
+    networks:
+        - elk
+
+  kibana:
+    image: kibana:latest
+    container_name: kibana
+    restart: always
+    ports:
+        - 8080:80
+        - 5601:5601
+    depends_on:
+        - elasticsearch
+    volumes:
+        - ./config/kibana.yml:/etc/kibana/kibana.yml
+    networks:
+        - elk
+
+networks:
+  elk:
+    driver: bridge
+

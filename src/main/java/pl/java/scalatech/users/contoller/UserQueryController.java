@@ -7,12 +7,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.async.DeferredResult;
 
 import pl.java.scalatech.es.PublishEvent;
 import pl.java.scalatech.users.domain.User;
 import pl.java.scalatech.users.repo.UserQueryRepo;
+import pl.java.scalatech.users.repo.UserQueryRxRepo;
 
 @RestController
 @RequestMapping("/users")
@@ -20,12 +23,15 @@ public class UserQueryController {
 
 	private final UserQueryRepo userRepo;
 
+	private final UserQueryRxRepo userRxRepo;
+
 	private final PublishEvent producer;
 
-	public UserQueryController(UserQueryRepo userRepo, PublishEvent producer) {
+	public UserQueryController(UserQueryRepo userRepo, PublishEvent producer,UserQueryRxRepo userRepoRx) {
 
 		this.userRepo = userRepo;
 		this.producer = producer;
+		this.userRxRepo = userRepoRx;
 	}
 
 	@GetMapping("/")
@@ -39,6 +45,16 @@ public class UserQueryController {
 		producer.publishUser();
 		return ResponseEntity.ok().build();
 	}
+
+	@GetMapping("/login/{login}")
+	DeferredResult<User> getUserByLogin(@PathVariable String login){
+
+				DeferredResult<User> deffered = new DeferredResult<>();
+				userRxRepo.findByLogin(login).subscribe(t -> deffered.setResult(t.get()));
+
+	return deffered;
+	}
+
 
 	@GetMapping("/prodImportant")
 	HttpEntity<Void> prodImportant() {

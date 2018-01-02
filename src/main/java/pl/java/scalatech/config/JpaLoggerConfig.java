@@ -1,18 +1,19 @@
 package pl.java.scalatech.config;
 
-import static net.sf.log4jdbc.tools.LoggingType.SINGLE_LINE;
-
-import javax.sql.DataSource;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 
-import lombok.extern.slf4j.Slf4j;
+import javax.sql.DataSource;
+
+import static net.sf.log4jdbc.tools.LoggingType.SINGLE_LINE;
+
 import net.sf.log4jdbc.Log4jdbcProxyDataSource;
 import net.sf.log4jdbc.tools.Log4JdbcCustomFormatter;
 
