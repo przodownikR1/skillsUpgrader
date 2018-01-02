@@ -1,19 +1,19 @@
 package pl.java.scalatech.tests.web3;
 
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.task.AsyncTaskExecutor;
+
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.task.AsyncTaskExecutor;
-import org.springframework.stereotype.Service;
-
-import lombok.extern.slf4j.Slf4j;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 
-@Service
+//@Service
 @Slf4j
 public class ReactorService {
 

@@ -1,8 +1,5 @@
 package pl.java.scalatech.cqrsRepo;
 
-import java.io.Serializable;
-import java.util.List;
-
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,29 +7,29 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.Repository;
 
+import java.io.Serializable;
+import java.util.Optional;
+
 import pl.java.scalatech.domains.AbstractEntity;
 
 @NoRepositoryBean
 public interface QueryRepo<T extends AbstractEntity, ID extends Serializable> extends Repository<T, ID> {
+    Optional<T> findById(ID id);
 
-	T findOne(ID id);
+    boolean existsById(ID id);
 
-	boolean exists(ID id);
+    long count();
 
-	long count();
+    Page<T> findAll(Pageable pageable);
 
-	Page<T> findAll(Pageable pageable);
+    Iterable<T> findAllById(Iterable<ID> ids);
 
-	List<T> findAll();
+    Iterable<T> findAll(Sort sort);
 
-	List<T> findAll(Sort sort);
+    T getOne(ID id);
 
-	List<T> findAll(Iterable<ID> ids);
+    <S extends T> Iterable<S> findAll(Example<S> example);
 
-	T getOne(ID id);
-
-	<S extends T> List<S> findAll(Example<S> example);
-
-	<S extends T> List<S> findAll(Example<S> example, Sort sort);
+    <S extends T> Iterable<S> findAll(Example<S> example, Sort sort);
 
 }
